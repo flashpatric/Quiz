@@ -61,7 +61,6 @@
 		DC55A81A18B36AAA006214BF /* QuizTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuizTests-Info.plist"; sourceTree = "<group>"; };
 		DC55A81C18B36AAA006214BF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC55A81E18B36AAA006214BF /* QuizTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuizTests.m; sourceTree = "<group>"; };
-		DC55A82818B36B8E006214BF /* libEstimoteSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libEstimoteSDK.a; path = Quiz/EstimoteSDK/libEstimoteSDK.a; sourceTree = "<group>"; };
 		DC55A82A18B36B9B006214BF /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		DC55A82C18B36BA5006214BF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		DC55A82E18B36BAE006214BF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -133,7 +132,6 @@
 				DC55A82E18B36BAE006214BF /* SystemConfiguration.framework */,
 				DC55A82C18B36BA5006214BF /* CoreLocation.framework */,
 				DC55A82A18B36B9B006214BF /* CoreBluetooth.framework */,
-				DC55A82818B36B8E006214BF /* libEstimoteSDK.a */,
 				DC55A7F318B36AA9006214BF /* Foundation.framework */,
 				DC55A7F518B36AA9006214BF /* CoreGraphics.framework */,
 				DC55A7F718B36AA9006214BF /* UIKit.framework */,
@@ -527,6 +525,7 @@
 				DC55A82418B36AAA006214BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC55A82518B36AAA006214BF /* Build configuration list for PBXNativeTarget "QuizTests" */ = {
 			isa = XCConfigurationList;
@@ -535,6 +534,7 @@
 				DC55A82718B36AAA006214BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
