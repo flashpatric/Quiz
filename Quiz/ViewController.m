@@ -22,25 +22,15 @@
 @property (nonatomic, strong) NSString * search;
 
 @property (nonatomic, strong) NSMutableArray * foundUnicorns;
-@property (nonatomic, strong) NSTimer * timer;
+
+
+@property (nonatomic) BOOL isQuizActive;
 
 @end
 
 @implementation ViewController
 
-
-/*
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-
-	if ([segue.identifier isEqualToString:@"sound"])
-	{
-		QuizViewController * destinationController = [segue destinationViewController];
-		//destinationController.currentAlarmName = loc.alarmName;
-		//destinationController.saveSoundDelegate = self;
-	}
-}
- */
+@synthesize timer, theTime;
 
 - (void)setupBackgroundImage
 {
@@ -79,9 +69,20 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
+    self.isQuizActive = NO;
+    foundMajor = [[NSNumber alloc] initWithInt:0];
     [self setupBeaconManager];
     
+    // Initialize the timer
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+}
+
+-(void)countDown
+{
+	// Quiz live counter
+    time = time + 1;
+	theTime.text = [NSString stringWithFormat:@"%i sec", time];
+    //[timer invalidate];
 }
 
 -(void)beaconManager:(ESTBeaconManager *)manager rangingBeaconsDidFailForRegion:(ESTBeaconRegion *)region withError:(NSError *)error {
@@ -96,6 +97,37 @@
     self.searching.text = @"didEnterRegion";
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.identifier isEqualToString:@"quizSegue"])
+	{
+        QuizViewController * destinationController = [segue destinationViewController];
+        destinationController.quizDelegate = self;
+	}
+}
+
+-(void)userDidPassQuiz:(BOOL)flag {
+    [self.foundUnicorns addObject:[NSString stringWithFormat:@"%i",[foundMajor intValue]]];
+    [self.tableView reloadData];
+    foundMajor = [[NSNumber alloc] initWithInt:0];
+    if ([self.foundUnicorns count] == 3) {
+        [timer invalidate];
+    }
+}
+
+-(void)startQuiz:(NSNumber *)major {
+    if (![major isEqualToValue:foundMajor]) {
+        
+        //NSString * color = [self beaconColor:[NSNumber numberWithInt:[major intValue]]];
+    
+        foundMajor = major;
+        self.isQuizActive = YES;
+    
+        
+        [self performSegueWithIdentifier:@"quizSegue" sender:self];
+    }
+}
+
 -(void)beaconManager:(ESTBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(ESTBeaconRegion *)region {
     if ([beacons count] > 0) {
         
@@ -108,12 +140,9 @@
             case 3: {
                 self.proximityText = @"immediate";
                 NSNumber * major = self.selectedBeacon.major;
+                // check if major already has been added
                 if(![self findId:major]) {
-                    NSString * color = [self beaconColor:[NSNumber numberWithInt:[major intValue]]];
-                    NSLog(@"found %@, adding",color);
-                    [self.foundUnicorns addObject:[NSString stringWithFormat:@"%i",[major intValue]]];
-                    [self.tableView reloadData];
-                    [self performSegueWithIdentifier:@"quizSegue" sender:self];
+                    [self startQuiz:major];
                 }
                 break;
             }
@@ -121,10 +150,9 @@
             case 2: {
                 self.proximityText = @"near";
                 NSNumber * major = self.selectedBeacon.major;
+                // check if major already has been added
                 if(![self findId:major]) {
-                    //NSString * color = [self beaconColor:[NSNumber numberWithInt:[major intValue]]];
-                    [self.foundUnicorns addObject:[NSString stringWithFormat:@"%i",[major intValue]]];
-                    [self.tableView reloadData];
+                    [self startQuiz:major];
                 }
                 break;
             }
@@ -293,13 +321,5 @@
     
     return cell;
 }
-
-
-/*
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    [self segueForUnwindingToViewController:<#(UIViewController *)#> fromViewController:<#(UIViewController *)#> identifier:<#(NSString *)#>]
-}
- */
 
 @end

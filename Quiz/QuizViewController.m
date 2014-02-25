@@ -15,7 +15,7 @@
 @implementation QuizViewController
 @synthesize theQuestion, theScore, theLives, theQuiz;
 @synthesize answerOne, answerTwo, answerThree, answerFour;
-@synthesize timer;
+@synthesize timer, quizDelegate;
 
 - (void)viewDidLoad
 {
@@ -34,24 +34,42 @@
 	myLives = 0;
 	//[buttonStart setTitle:@"Start Quiz" forstate:UIControlStateNormal];
 	//[answerOne setTitle:@"Let's Play!" forState:UIControlStateNormal];
+    
 	[answerOne setHidden:YES];
 	[answerTwo setHidden:YES];
 	[answerThree setHidden:YES];
 	[answerFour setHidden:YES];
+    
 	[self loadQuiz];
+}
+
+-(void)loadQuiz
+{
+	// This is our forced-loaded array of quiz questions.
+	// FORMAT IS IMPORTANT!!!!
+	// 1: Question, 2 3 4 5: Answers 1-4 respectively, 6: The right answer
+	// THIS IS A TERRIBLE WAY TO DO THIS. I will figure out how to do nested arrays to make this better.
+	NSArray *quizArray = [[NSArray alloc] initWithObjects:
+						  @"Which rays are most damaging to cells?",@"Infrared",@"Ultraviolet",@"X-rays",@"Radio Waves",@"2",
+						  @"Wavelengs that are shorter than visible light are:", @"Dangerous and can be harmful", @"Harmless", @"Have a low frequency", @"Can be seen with our eyes", @"4",
+						  @"What is the difference between a Theory and a Law?", @"A theory can be proven", @"A law can be proven", @"A law is based on ideas", @"Theories are based on opinions", @"2",
+						  @"What is a Hypothesis?", @"A guess", @"A law", @"What you change in an experiment", @"A prediction of the outcome", @"4",
+						  @"Convert 1500 milliliters to meters:", @"1500000", @"150", @"1.5", @".015", @"3",
+						  @"What would be the appropriate measure to record the length of a car?", @"Centimeters", @"Kilometers", @"Millimeters", @"Meters", @"4",
+						  @"Magnitudes on the Richter Scale increase by what increment?", @"2 times", @"5 times", @"50%", @"10 times", @"4",
+						  nil];
+	self.theQuiz = quizArray;
+	quizArray=nil;
+    
+    [self askQuestion];
 }
 
 -(void)askQuestion
 {
 	// Unhide all the answer buttons.
-    //	[self buttonMoveIn];
+    // [self buttonMoveIn];
 	// [self moveButtonsIn];
 	// [buttonStart setHidden:YES];
-    
-	[answerOne setCenter:CGPointMake(160, 210)];
-	[answerTwo setCenter:CGPointMake(160, 260)];
-	[answerThree setCenter:CGPointMake(160, 310)];
-	[answerFour setCenter:CGPointMake(160, 360)];
     
 	[answerOne setHidden:NO];
 	[answerTwo setHidden:NO];
@@ -61,9 +79,6 @@
 	
 	// Set the game to a "live" question (for timer purposes)
 	questionLive = YES;
-	
-	// Set the time for the timer
-	time = 30.0;
 	
 	// Go to the next question
 	questionNumber = questionNumber + 1;
@@ -98,49 +113,20 @@
 	theQuestion.textColor = [UIColor blackColor];
 	theQuestion.text = activeQuestion;
 	
-	// Start the timer for the countdown
-	timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
-	
 	selected=nil;
 	activeQuestion=nil;
 }
 
 -(void)countDown
 {
-	// Question live counter
-	if(questionLive==YES)
-	{
-		time = time - 1;
-		theLives.text = [NSString stringWithFormat:@"Time remaining: %i!", time];
-		
-		if(time == 0)
-		{
-			// Loser!
-			questionLive = NO;
-			theQuestion.textAlignment = NSTextAlignmentLeft;
-			theQuestion.textColor = [UIColor redColor];
-			theQuestion.text = @"Sorry, you ran out of time!";
-			myScore = myScore - 50;
-			[timer invalidate];
-			[self updateScore];
-		}
-	}
-	// In-between Question counter
-	else
-	{
-		time = time - 1;
-		theLives.text = [NSString stringWithFormat:@"Next question in...%i!", time];
+    time = time - 1;
+	theLives.text = [NSString stringWithFormat:@"Next question in...%i!", time];
         
-		if(time == 0)
-		{
-			[timer invalidate];
-			theLives.text = @"";
-			[self askQuestion];
-		}
-	}
-	if(time < 0)
+	if(time == 0)
 	{
 		[timer invalidate];
+		theLives.text = @"";
+		[self askQuestion];
 	}
 }
 
@@ -154,15 +140,23 @@
 		theQuestion.textColor = [UIColor greenColor];
 		theQuestion.text = @"Correct!";
 		myScore = myScore + 50;
+        
+        
+        if ([self.quizDelegate respondsToSelector:@selector(userDidPassQuiz:)])
+        {
+            [self.quizDelegate userDidPassQuiz:YES];
+        }
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
 	}
 	else
 	{
 		theQuestion.textAlignment = NSTextAlignmentCenter;
 		theQuestion.textColor = [UIColor redColor];
 		theQuestion.text = @"FAIL!";
-		myScore = myScore - 50;
+		[self updateScore];
 	}
-	[self updateScore];
+	//
 }
 
 -(void)updateScore
@@ -184,38 +178,11 @@
 	scoreUpdate=nil;
 	
 	// END THE GAME.
-	NSInteger endOfQuiz = [theQuiz count];
-	if((((questionNumber - 1) * 6) + 6) == endOfQuiz)
-	{
-		// Game is over.
-		if(myScore > 0)
-		{
-			NSString *finishingStatement = [[NSString alloc] initWithFormat:@"That's game!\nYou scored %i!", myScore];
-			theQuestion.text = finishingStatement;
-			finishingStatement=nil;
-		}
-		else
-		{
-			NSString *finishingStatement = [[NSString alloc] initWithFormat:@"That's game!\nYou scored %i.", myScore];
-			theQuestion.text = finishingStatement;
-			finishingStatement=nil;
-		}
-		theLives.text = @"";
-		
-		// Make button 1 appear as a reset game button
-		restartGame = YES;
-		[answerOne setHidden:NO];
-		[answerOne setTitle:@"Restart the game (broke)" forState:UIControlStateNormal];
-		
-	}
-	else
-	{
-        // Give a short rest between questions
-        time = 3.0;
+    // Give a short rest between questions
+    time = 3.0;
         
-        // Initialize the timer
-        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
-	}
+    // Initialize the timer
+    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
 }
 
 
@@ -242,32 +209,18 @@
 }
 
 - (IBAction)buttonTwo:(id)sender {
+	NSInteger theAnswerValue = 2;
+	[self checkAnswer:(int)theAnswerValue];
 }
 
 - (IBAction)buttonThree:(id)sender {
+	NSInteger theAnswerValue = 3;
+	[self checkAnswer:(int)theAnswerValue];
 }
 
 - (IBAction)buttonFour:(id)sender {
-}
-
--(void)loadQuiz
-{
-	// This is our forced-loaded array of quiz questions.
-	// FORMAT IS IMPORTANT!!!!
-	// 1: Question, 2 3 4 5: Answers 1-4 respectively, 6: The right answer
-	// THIS IS A TERRIBLE WAY TO DO THIS. I will figure out how to do nested arrays to make this better.
-	NSArray *quizArray = [[NSArray alloc] initWithObjects:
-						  @"Which rays are most damaging to cells?",@"Infrared",@"Ultraviolet",@"X-rays",@"Radio Waves",@"2",
-						  @"Wavelengs that are shorter than visible light are:", @"Dangerous and can be harmful", @"Harmless", @"Have a low frequency", @"Can be seen with our eyes", @"4",
-						  @"What is the difference between a Theory and a Law?", @"A theory can be proven", @"A law can be proven", @"A law is based on ideas", @"Theories are based on opinions", @"2",
-						  @"What is a Hypothesis?", @"A guess", @"A law", @"What you change in an experiment", @"A prediction of the outcome", @"4",
-						  @"Convert 1500 milliliters to meters:", @"1500000", @"150", @"1.5", @".015", @"3",
-						  @"What would be the appropriate measure to record the length of a car?", @"Centimeters", @"Kilometers", @"Millimeters", @"Meters", @"4",
-						  @"Magnitudes on the Richter Scale increase by what increment?", @"2 times", @"5 times", @"50%", @"10 times", @"4",
-						  nil];
-	self.theQuiz = quizArray;
-	quizArray=nil;
-    
+	NSInteger theAnswerValue = 4;
+	[self checkAnswer:(int)theAnswerValue];
 }
 
 - (void)didReceiveMemoryWarning
