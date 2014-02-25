@@ -4,6 +4,113 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
+        <!--Quiz View Controller-->
+        <scene sceneID="8jE-Oz-vcC">
+            <objects>
+                <viewController id="rTJ-6K-apD" customClass="QuizViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="b67-KV-6sm"/>
+                        <viewControllerLayoutGuide type="bottom" id="jdv-YO-Nfd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Itf-vt-xS3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="Here's the question..." lineBreakMode="wordWrap" numberOfLines="5" minimumFontSize="10" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="OED-2D-rSJ">
+                                <rect key="frame" x="20" y="51" width="280" height="162"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.70196080000000005" green="0.70196080000000005" blue="0.70196080000000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="Score: 0" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="CdA-qR-Lh1">
+                                <rect key="frame" x="20" y="521" width="136" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9g-HU-wtR">
+                                <rect key="frame" x="20" y="266" width="280" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonOne:" destination="rTJ-6K-apD" eventType="touchUpInside" id="Apc-Va-3Di"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0fd-Px-KHx">
+                                <rect key="frame" x="20" y="266" width="280" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonTwo:" destination="rTJ-6K-apD" eventType="touchUpInside" id="S3d-io-vIm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAP-hp-pcA">
+                                <rect key="frame" x="20" y="266" width="280" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonThree:" destination="rTJ-6K-apD" eventType="touchUpInside" id="rdI-Uz-I1j"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U6F-sn-VdD">
+                                <rect key="frame" x="20" y="266" width="280" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonFour:" destination="rTJ-6K-apD" eventType="touchUpInside" id="p4J-VO-tWj"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5jy-4i-avX">
+                                <rect key="frame" x="164" y="527" width="136" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="answerFour" destination="U6F-sn-VdD" id="Ebt-iY-nly"/>
+                        <outlet property="answerOne" destination="Y9g-HU-wtR" id="Vi0-OQ-bGB"/>
+                        <outlet property="answerThree" destination="CAP-hp-pcA" id="nwt-8P-8qr"/>
+                        <outlet property="answerTwo" destination="0fd-Px-KHx" id="3qF-5i-2KB"/>
+                        <outlet property="theLives" destination="5jy-4i-avX" id="acR-Jn-pOc"/>
+                        <outlet property="theQuestion" destination="OED-2D-rSJ" id="lRy-HN-Y4V"/>
+                        <outlet property="theScore" destination="CdA-qR-Lh1" id="oYu-6h-LAN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AVW-V0-Oux" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="528" y="1238"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -65,11 +172,12 @@
                         <outlet property="proximity" destination="nsb-y4-QcR" id="JiM-i4-Th3"/>
                         <outlet property="searching" destination="k6Z-WV-QDt" id="oCL-Qe-LFD"/>
                         <outlet property="tableView" destination="d5n-Ky-jkZ" id="zHS-yn-pI8"/>
+                        <segue destination="rTJ-6K-apD" kind="modal" identifier="quizSegue" id="LVe-VB-dYs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1092" y="553"/>
+            <point key="canvasLocation" x="-9" y="1262"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="NNX-jM-S5y">
@@ -94,7 +202,7 @@
                                 <rect key="frame" x="80" y="36" width="160" height="170"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H41-ab-MY4">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H41-ab-MY4">
                                 <rect key="frame" x="60" y="506" width="201" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -116,16 +224,18 @@
                                 <rect key="frame" x="20" y="156" width="285" height="292"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
-                                <string key="text">The unicorns Gwen, Lee and Brandy have been captured by the evil scientist Nazim. You must free them!In order to free these magical creatures you'll have to find them. Nazim have made them invisible but they will start to glow on your screen as you approach them. To free them you’ll have to give the correct answer to Nazim's riddles. When you push the start button, a timer will start. If you are the fastest unicorn releaser you might have a chance to become one yourself! </string>
+                                <string key="text">The unicorns Gwen, Lee and Brandy have been captured by the evil scientist Nazim. 
+You must free them!
+
+In order to free these magical creatures you'll have to find them. Nazim have made them invisible but they will start to glow on your screen as you approach them. To free them you’ll have to give the correct answer to Nazim's riddles.
+ 
+When you push the start button, a timer will start. If you are the fastest unicorn releaser you might have a chance to become one yourself! </string>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="CzY-Hp-q19" firstAttribute="top" secondItem="H41-ab-MY4" secondAttribute="bottom" constant="25" id="6lQ-xx-loM"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Vo5-PI-2rm"/>
                     <connections>

@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "QuizViewController.h"
 #import <CoreData/CoreData.h>
 #import <AudioToolbox/AudioToolbox.h>
 
@@ -19,10 +20,6 @@
 @property (nonatomic, strong) NSString * proximityText;
 @property (nonatomic, strong) NSString * colorText;
 @property (nonatomic, strong) NSString * search;
-//@property (nonatomic, strong) UIImageView * positionDot;
-
-//@property (nonatomic) float dotMinPos;
-//@property (nonatomic) float dotRange;
 
 @property (nonatomic, strong) NSMutableArray * foundUnicorns;
 @property (nonatomic, strong) NSTimer * timer;
@@ -30,6 +27,20 @@
 @end
 
 @implementation ViewController
+
+
+/*
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+
+	if ([segue.identifier isEqualToString:@"sound"])
+	{
+		QuizViewController * destinationController = [segue destinationViewController];
+		//destinationController.currentAlarmName = loc.alarmName;
+		//destinationController.saveSoundDelegate = self;
+	}
+}
+ */
 
 - (void)setupBackgroundImage
 {
@@ -42,20 +53,6 @@
         self.background.image = [UIImage imageNamed:@"backgroundSmallRed"];
     }
 }
-
-/*
-- (void)setupDotImage
-{
-    self.positionDot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dotImage"]];
-    [self.positionDot setCenter:self.view.center];
-    [self.positionDot setAlpha:1.0f];
-    
-    [self.view addSubview:self.positionDot];
-    
-    self.dotMinPos = 150;
-    self.dotRange = self.view.bounds.size.height  - 220;
-}
- */
 
 - (void)setupView
 {
@@ -116,6 +113,7 @@
                     NSLog(@"found %@, adding",color);
                     [self.foundUnicorns addObject:[NSString stringWithFormat:@"%i",[major intValue]]];
                     [self.tableView reloadData];
+                    [self performSegueWithIdentifier:@"quizSegue" sender:self];
                 }
                 break;
             }
@@ -151,8 +149,6 @@
         self.distance.text = [NSString stringWithFormat:@"Distance: %f",distFactor];
         self.proximity.text = [NSString stringWithFormat:@"%@ is %@",[self beaconColor:self.selectedBeacon.major], self.proximityText];
         self.searching.text = @"";
-        //float newYPos = self.dotMinPos + distFactor * self.dotRange - 50;
-        //self.positionDot.center = CGPointMake(self.view.bounds.size.width / 2, newYPos);
         
         NSString *regEx = [NSString stringWithFormat:@".*%@.*", @"Unknown"];
         NSRange range = [self.colorText rangeOfString:regEx options:NSRegularExpressionSearch];
@@ -162,10 +158,8 @@
                 NSLog(@"samma bild!");
             }
             self.beaconImage.image = img;
-            //[self.positionDot setAlpha:1.0f];
         } else {
             self.beaconImage.image = nil;
-            //[self.positionDot setAlpha:0.0f];
         }
         
     }
@@ -299,5 +293,13 @@
     
     return cell;
 }
+
+
+/*
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    [self segueForUnwindingToViewController:<#(UIViewController *)#> fromViewController:<#(UIViewController *)#> identifier:<#(NSString *)#>]
+}
+ */
 
 @end

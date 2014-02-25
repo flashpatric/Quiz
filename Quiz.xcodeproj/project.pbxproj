@@ -29,6 +29,7 @@
 		DC55A84518B6343E006214BF /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC55A84418B6343E006214BF /* StartViewController.m */; };
 		DC55A84718B646B5006214BF /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC55A84618B646B5006214BF /* CoreAudio.framework */; };
 		DC55A84918B64721006214BF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC55A84818B64721006214BF /* AudioToolbox.framework */; };
+		DC55A84C18BB5FBB006214BF /* QuizViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC55A84B18BB5FBB006214BF /* QuizViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		DC55A84418B6343E006214BF /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
 		DC55A84618B646B5006214BF /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		DC55A84818B64721006214BF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		DC55A84A18BB5FBB006214BF /* QuizViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizViewController.h; sourceTree = "<group>"; };
+		DC55A84B18BB5FBB006214BF /* QuizViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +152,8 @@
 				DC55A84418B6343E006214BF /* StartViewController.m */,
 				DC55A80818B36AAA006214BF /* ViewController.h */,
 				DC55A80918B36AAA006214BF /* ViewController.m */,
+				DC55A84A18BB5FBB006214BF /* QuizViewController.h */,
+				DC55A84B18BB5FBB006214BF /* QuizViewController.m */,
 				DC55A83218B4BCFE006214BF /* Resources */,
 				DC55A7FA18B36AA9006214BF /* Supporting Files */,
 			);
@@ -302,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC55A80A18B36AAA006214BF /* ViewController.m in Sources */,
+				DC55A84C18BB5FBB006214BF /* QuizViewController.m in Sources */,
 				DC55A84518B6343E006214BF /* StartViewController.m in Sources */,
 				DC55A80418B36AA9006214BF /* AppDelegate.m in Sources */,
 				DC55A80018B36AA9006214BF /* main.m in Sources */,
